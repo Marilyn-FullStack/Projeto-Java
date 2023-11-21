@@ -3,6 +3,7 @@ package conta;
 import java.util.Scanner;
 
 import conta.model.Conta;
+import conta.model.ContaCorrente;
 
 public class Menu {
 
@@ -17,6 +18,14 @@ public class Menu {
 		c1.visualizar();
 		c1.depositar(100.0f);
 		c1.visualizar();
+
+		// TESTE MODEL CLASSE CONTA CORRENTE
+		Conta cc1 = new ContaCorrente("Beyonce", 2, 2, 1111, 50.0f, 1000000.0f);
+		cc1.visualizar();
+		cc1.sacar(1000000.50f);
+		cc1.visualizar();
+		cc1.depositar(100.0f);
+		cc1.visualizar();
 
 		int opcao;
 
