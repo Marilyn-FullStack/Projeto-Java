@@ -89,7 +89,7 @@ public class Conta {
 		}
 
 		System.out.println("|*****************************************************|");
-		System.out.println("|   			Dados da Conta                        |");
+		System.out.println("|                    Dados da Conta                   |");
 		System.out.println("|*****************************************************|");
 		System.out.println("|    Titular:	" + this.titular);
 		System.out.println("|    Tipo da conta:	" + tipo);
