@@ -14,7 +14,13 @@ public class ContaController implements ContaRepository {
 	//ACESS CRUD DA CONTA
 	@Override
 	public void procurarPorNumero(int numero) {
-		
+		var conta = buscarNaCollection(numero);
+		if (conta != null)
+			conta.visualizar();
+		else
+			System.out.println("|*****************************************************|");
+			System.out.println("|     Conta número: " + conta.getNumero() + " não encontrada!");
+			System.out.println("|*****************************************************|");
 	}
 
 	@Override
@@ -29,15 +35,27 @@ public class ContaController implements ContaRepository {
 		listaContas.add(conta);
 
 		System.out.println("|*****************************************************|");
-		System.out.println("|A conta número: " + conta.getNumero() + "criada com sucesso!");
+		System.out.println("|     Conta número: " + conta.getNumero() + "criada com sucesso!");
 		System.out.println("|*****************************************************|");
 		
 	}
 
 	@Override
 	public void atualizar(Conta conta) {
+		var buscaConta = buscarNaCollection(conta.getNumero());
 		
-	}
+		if (buscaConta != null) {
+			listaContas.set(listaContas.indexOf(buscaConta), conta);
+		System.out.println("|*****************************************************|");
+		System.out.println("|     Conta número: " + conta.getNumero() + "atualizada!");
+		System.out.println("|*****************************************************|");
+		
+	}else 
+			System.out.println("|*****************************************************|");
+			System.out.println("|     Conta número: " + conta.getNumero() + " não encontrada!");
+			System.out.println("|*****************************************************|");
+	}	
+
 
 	//METODOS BANCARIOS
 	@Override
@@ -62,8 +80,23 @@ public class ContaController implements ContaRepository {
 	
 	
 	//METODOS AUXILIARES
-	public int gerarNumero() {
+	public int gerrarNumero() {
 		return ++ numero;
 	}
+	
+	public Conta buscarNaCollection(int numero) {
+		for (var conta : listaContas) {
+			if (conta.getNumero() == numero) {
+				return conta;
+			}
+		}
+		return null;
+	}
+
+	public int gerarNumero() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 
 }
