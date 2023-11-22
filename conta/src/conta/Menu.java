@@ -1,10 +1,13 @@
 package conta;
 
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import conta.model.Conta;
 import conta.model.ContaCorrente;
 import conta.model.ContaPoupanca;
+
 public class Menu {
 
 	static Scanner sc = new Scanner(System.in);
@@ -59,10 +62,19 @@ public class Menu {
 			System.out.println("|*****************************************************|");
 
 			// DECISÕES DE CADA OPÇÃO
-			opcao = sc.nextInt();
+			try {
+				opcao = sc.nextInt();
+			} catch (InputMismatchException e) {
+
+				System.out.println("|*****************************************************|");
+				System.out.println("|   Digite valores inteiros!                          |");
+				System.out.println("|*****************************************************|");
+				sc.nextLine();
+				opcao = 0;
+			}
 
 			if (opcao == 9) {
-				System.out.println("\n|*****************************************************|");
+				System.out.println("|*****************************************************|");
 				System.out.println("|  Luar Banco a boa fase do seu capital começa aqui!  |");
 				System.out.println("|*****************************************************|");
 				sobre();
@@ -72,39 +84,66 @@ public class Menu {
 
 			switch (opcao) {
 			case 1:
-				System.out.println("|              Criar Conta                         |\n");
+				System.out.println("|*****************************************************|");
+				System.out.println("|              Criar Conta                            |");
+				System.out.println("|*****************************************************|");
+				keyPress();
 				break;
 
 			case 2:
-				System.out.println("|              Listar todas as contas              |\n");
+				System.out.println("|*****************************************************|");
+				System.out.println("|              Listar todas as contas                 |");
+				System.out.println("|*****************************************************|");
+				keyPress();
 				break;
 
 			case 3:
-				System.out.println("|              Consultar de dados por numero       |\n");
+				System.out.println("|*****************************************************|");
+				System.out.println("|              Consultar de dados por numero          |");
+				System.out.println("|*****************************************************|");
+				keyPress();
 				break;
 
 			case 4:
-				System.out.println("|              Atualizar dados                     |\n\n");
+				System.out.println("|*****************************************************|");
+				System.out.println("|              Atualizar dados                        |");
+				System.out.println("|*****************************************************|");
+				keyPress();
 				break;
 
 			case 5:
-				System.out.println("|              Apagar a conta                      |\n\n");
+				System.out.println("|*****************************************************|");
+				System.out.println("|              Apagar a conta                         |");
+				System.out.println("|*****************************************************|");
+				keyPress();
 				break;
 
 			case 6:
-				System.out.println("|              Saque                               |\n");
+				System.out.println("|*****************************************************|");
+				System.out.println("|              Saque                                  |");
+				System.out.println("|*****************************************************|");
+				keyPress();
 				break;
 
 			case 7:
-				System.out.println("|              Deposito                            |\n");
+				System.out.println("|*****************************************************|");
+				System.out.println("|              Deposito                               |");
+				System.out.println("|*****************************************************|");
+				keyPress();
 				break;
 
 			case 8:
-				System.out.println("|              Transferencia entre contas          |\n");
+				System.out.println("|*****************************************************|");
+				System.out.println("|              Transferencia entre contas             |");
+				System.out.println("|*****************************************************|");
+				keyPress();
 				break;
 
 			default:
-				System.out.println("\n|              Opção invalida - Tente novamente    |\n");
+				System.out.println("|*****************************************************|");
+				System.out.println("|              Opção invalida - Tente novamente       |");
+				System.out.println("|*****************************************************|");
+				keyPress();
 				break;
 			}
 
@@ -119,7 +158,19 @@ public class Menu {
 		System.out.println("|   https://github.com/Marilyn-FullStack              |");
 		System.out.println("|   https://www.linkedin.com/in/mlls                  |");
 		System.out.println("|*****************************************************|");
-
 	}
 
+	public static void keyPress() {
+		try {
+			System.out.println("|   Pressione Enter para Continuar...                 |");
+			System.out.println("|*****************************************************|");
+			System.in.read();
+
+		} catch (IOException e) {
+			System.out.println("|*****************************************************|");
+			System.out.println("|   Você pressionou uma tecla diferente de Enter!     |");
+			System.out.println("|*****************************************************|");
+		}
+
+	}
 }
