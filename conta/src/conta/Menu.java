@@ -14,14 +14,6 @@ public class Menu {
 
 	public static void main(String[] args) {
 
-		// TESTE MODEL CLASSE CONTA
-		Conta c1 = new Conta("Beyonce", 1, 1, 1111, 8000000.0f);
-		c1.visualizar();
-		c1.sacar(5.50f);
-		c1.visualizar();
-		c1.depositar(100.0f);
-		c1.visualizar();
-
 		// TESTE MODEL CLASSE CONTA CORRENTE
 		Conta cc1 = new ContaCorrente("Beyonce", 2, 2, 1111, 50.0f, 1000000.0f);
 		cc1.visualizar();
