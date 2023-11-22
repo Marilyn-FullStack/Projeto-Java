@@ -7,6 +7,7 @@ import java.util.Scanner;
 import conta.controller.ContaController;
 import conta.model.ContaCorrente;
 import conta.model.ContaPoupanca;
+import conta.util.Cores;
 
 public class Menu {
 
@@ -22,7 +23,8 @@ public class Menu {
 
 		while (true) {
 
-			System.out.println("|*****************************************************|");
+			System.out.println( Cores.TEXT_BLUE_BOLD_BRIGHT +
+					"|*****************************************************|");
 			System.out.println("|                                                     |");
 			System.out.println("|                       LUAR BANCO                    |");
 			System.out.println("|                                                     |");
@@ -55,7 +57,7 @@ public class Menu {
 			}
 
 			if (opcao == 9) {
-				System.out.println("|*****************************************************|");
+				System.out.println("\n|*****************************************************|");
 				System.out.println("|  Luar Banco a boa fase do seu capital começa aqui!  |");
 				System.out.println("|*****************************************************|");
 				sobre();
@@ -174,6 +176,15 @@ public class Menu {
 				System.out.println("|*****************************************************|");
 				System.out.println("|              Apagar a conta                         |");
 				System.out.println("|*****************************************************|");
+
+				System.out.println("|*****************************************************|");
+				System.out.println("|              Atualizar dados                        |");
+				System.out.println("|*****************************************************|");
+				
+				numero = sc.nextInt();
+				
+				contas.deletar(numero);
+				
 				keyPress();
 				break;
 
@@ -228,7 +239,7 @@ public class Menu {
 		} catch (IOException e) {
 			System.out.println("|*****************************************************|");
 			System.out.println("|   Você pressionou uma tecla diferente de Enter!     |");
-			System.out.println("|*****************************************************|");
+			System.out.println("|*****************************************************|" + Cores.TEXT_RESET);
 		}
 
 	}

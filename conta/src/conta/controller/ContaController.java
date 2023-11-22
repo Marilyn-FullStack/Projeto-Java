@@ -47,12 +47,12 @@ public class ContaController implements ContaRepository {
 		if (buscaConta != null) {
 			listaContas.set(listaContas.indexOf(buscaConta), conta);
 		System.out.println("|*****************************************************|");
-		System.out.println("|     Conta número: " + conta.getNumero() + "atualizada!");
+		System.out.println("|     Conta número: " + conta.getNumero() + " Atualizada!");
 		System.out.println("|*****************************************************|");
 		
 	}else 
 			System.out.println("|*****************************************************|");
-			System.out.println("|     Conta número: " + conta.getNumero() + " não encontrada!");
+			System.out.println("|     Conta número: " + conta.getNumero() + " Não encontrada!");
 			System.out.println("|*****************************************************|");
 	}	
 
@@ -60,6 +60,19 @@ public class ContaController implements ContaRepository {
 	//METODOS BANCARIOS
 	@Override
 	public void deletar(int numero) {
+		var conta = buscarNaCollection(numero);
+		
+		if (conta != null) {
+			if (listaContas.remove(conta) == true)
+				System.out.println("|*****************************************************|");
+			System.out.println("|     Conta número: " + numero + " Deletada com sucesso!");
+			System.out.println("|*****************************************************|");
+			
+		} else 
+			System.out.println("|*****************************************************|");
+			System.out.println("|     Conta número: " + numero + " Não encontrada!");
+			System.out.println("|*****************************************************|");
+			
 		
 	}
 
