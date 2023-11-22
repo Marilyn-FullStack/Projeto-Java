@@ -2,18 +2,18 @@ package conta.model;
 
 public class ContaCorrente extends Conta {
 
-	// ADD ATRIBUTO ESPECIFICO DA CLASSE
 	private float limite;
 
-	public ContaCorrente(String titular, int agencia, int tipo, int numero, float saldo, float limite) {
-		super(titular, agencia, tipo, numero, saldo);
-
+	public ContaCorrente(int numero, int agencia, int tipo, String titular, float saldo, float limite) {
+		super(numero, agencia, tipo, titular, saldo);
 		this.limite = limite;
 	}
 
+	// ADD ATRIBUTO ESPECIFICO DA CLASSE
+
 	public float getLimite() {
 
-		//SALDO SE NEGATIVO ATUALIZA O LIMITE
+		// SALDO SE NEGATIVO ATUALIZA O LIMITE
 		if (this.getSaldo() < 0)
 			return this.limite - Math.abs(this.getSaldo());
 

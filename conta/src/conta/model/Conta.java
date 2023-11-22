@@ -2,29 +2,27 @@ package conta.model;
 
 public abstract class Conta {
 
-	//ATRIBUTOS DA CLASSE
-	private String titular;
+	// ATRIBUTOS DA CLASSE
+	private int numero;
 	private int agencia;
 	private int tipo;
-	private int numero;
+	private String titular;
 	private float saldo;
 
-	//MÉTODO CONSTRUTOR
-	public Conta(String titular, int agencia, int tipo, int numero, float saldo) {
-		this.titular = titular;
+	public Conta(int numero, int agencia, int tipo, String titular, float saldo) {
+		this.numero = numero;
 		this.agencia = agencia;
 		this.tipo = tipo;
-		this.numero = numero;
+		this.titular = titular;
 		this.saldo = saldo;
 	}
 
-	//METODOS METODOS DE ACESSO E MODIFICAÇÃO
-	public String getTitular() {
-		return titular;
+	public int getNumero() {
+		return numero;
 	}
 
-	public void setTitular(String titular) {
-		this.titular = titular;
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 
 	public int getAgencia() {
@@ -43,12 +41,12 @@ public abstract class Conta {
 		this.tipo = tipo;
 	}
 
-	public int getNumero() {
-		return numero;
+	public String getTitular() {
+		return titular;
 	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setTitular(String titular) {
+		this.titular = titular;
 	}
 
 	public float getSaldo() {
@@ -82,9 +80,11 @@ public abstract class Conta {
 		String tipo = "";
 
 		switch (this.tipo) {
+
 		case 1:
 			tipo = "Conta Corrente";
 			break;
+
 		case 2:
 			tipo = "Conta Poupança";
 			break;
