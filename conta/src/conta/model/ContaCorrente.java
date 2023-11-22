@@ -13,7 +13,7 @@ public class ContaCorrente extends Conta {
 
 	public float getLimite() {
 
-		// SALDO NEGATIVO ATUALIZA O LIMITE
+		//SALDO SE NEGATIVO ATUALIZA O LIMITE
 		if (this.getSaldo() < 0)
 			return this.limite - Math.abs(this.getSaldo());
 
@@ -41,6 +41,8 @@ public class ContaCorrente extends Conta {
 	@Override
 	public void visualizar() {
 		super.visualizar();
-		System.out.printf("|              Saldo Insuficiente %.2f R$            \n", this.getLimite());
+		System.out.println("|*****************************************************|");
+		System.out.printf("|              Saldo Insuficiente %.2f R$ \n", this.getLimite());
+		System.out.println("|*****************************************************|");
 	}
 }

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import conta.model.Conta;
 import conta.model.ContaCorrente;
-
+import conta.model.ContaPoupanca;
 public class Menu {
 
 	static Scanner sc = new Scanner(System.in);
@@ -27,6 +27,13 @@ public class Menu {
 		cc1.depositar(100.0f);
 		cc1.visualizar();
 
+		// TESTE MODEL CLASSE CONTAPOUPANÇA
+		Conta cp1 = new ContaPoupanca("Beyonce", 1, 5, 1111, 8000000.0f, 4);
+		cp1.visualizar();
+		cp1.sacar(15.50f);
+		cp1.visualizar();
+		cp1.depositar(100.0f);
+		cp1.visualizar();
 		int opcao;
 
 		while (true) {
