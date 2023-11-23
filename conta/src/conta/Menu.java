@@ -18,9 +18,8 @@ public class Menu {
 		ContaController contas = new ContaController();
 
 		String titular;
-		int opcao, numero, agencia, tipo, aniversario;
-		float saldo, limite;
-
+		int opcao, numero, agencia, tipo, aniversario, numDestino;
+		float saldo, limite, valor;
 		while (true) {
 
 			System.out.println( Cores.TEXT_BLUE_BOLD_BRIGHT +
@@ -41,10 +40,10 @@ public class Menu {
 			System.out.println("|              9 - Sair                               |");
 			System.out.println("|                                                     |");
 			System.out.println("|*****************************************************|");
-			System.out.println("|             Entre na opÁ„o desejada                 |");
+			System.out.println("|             Entre na opÔøΩÔøΩo desejada                 |");
 			System.out.println("|*****************************************************|");
 
-			// DECIS’ES DE CADA OP«√O
+			// DECISOES DE CADA OPCAO
 			try {
 				opcao = sc.nextInt();
 			} catch (InputMismatchException e) {
@@ -58,7 +57,7 @@ public class Menu {
 
 			if (opcao == 9) {
 				System.out.println("\n|*****************************************************|");
-				System.out.println("|  Luar Banco a boa fase do seu capital comeÁa aqui!  |");
+				System.out.println("|  Luar Banco a boa fase do seu capital comeÔøΩa aqui!  |");
 				System.out.println("|*****************************************************|");
 				sobre();
 				sc.close();
@@ -67,7 +66,7 @@ public class Menu {
 
 			switch (opcao) {
 			case 1:
-				System.out.println("\n|              Digite o n˙mero da Agencia ");
+				System.out.println("\n|              Digite o nÔøΩmero da Agencia ");
 				agencia = sc.nextInt();
 				System.out.println("|              Digite o nome do titular: ");
 				sc.skip("\\R?");
@@ -102,7 +101,6 @@ public class Menu {
 			case 2:
 				System.out.println("|*****************************************************|");
 				System.out.println("|              Listar todas as contas                 |");
-				System.out.println("|*****************************************************|");
 				contas.listarTodas();
 				keyPress();
 				break;
@@ -121,7 +119,7 @@ public class Menu {
 			case 4:
 				System.out.println("|*****************************************************|");
 				System.out.println("|              Atualizar dados                        |");
-				System.out.println("|*****************************************************|");
+				System.out.println("|              Digite o numero da Conta: ");
 				numero = sc.nextInt();
 
 				var buscaConta = contas.buscarNaCollection(numero);
@@ -131,32 +129,31 @@ public class Menu {
 					tipo = buscaConta.getTipo();
 
 					System.out.println("|*****************************************************|");
-					System.out.println("|              Digite o numero da AgÍncia             |");
-					System.out.println("|*****************************************************|");
+					System.out.println("|              Digite o numero da Ag√™ncia:");
 					agencia = sc.nextInt();
 
 					System.out.println("|*****************************************************|");
-					System.out.println("|              Digite o nome do titular               |");
-					System.out.println("|*****************************************************|");
+					System.out.println("|              Digite o nome do titular: ");
 					titular = sc.nextLine();
 
 					System.out.println("|*****************************************************|");
-					System.out.println("|              Digite o saldo da conta!               |");
-					System.out.println("|*****************************************************|");
+					System.out.println("|              Digite o saldo da conta:");
 					saldo = sc.nextFloat();
 
 					switch (tipo) {
 					case 1 -> {
 						System.out.println("|*****************************************************|");
-						System.out.println("|              Digite o limite de credito!            |");
-						System.out.println("|*****************************************************|");
+						System.out.println("|              Digite o limite de credito: ");
 						limite = sc.nextFloat();
+						
+						contas.atualizar(new ContaCorrente(numero, agencia, tipo, titular, saldo, limite));
 					}
 					case 2 -> {
 						System.out.println("|*****************************************************|");
-						System.out.println("|              Digite o dia do aniversario da conta!  |");
-						System.out.println("|*****************************************************|");
+						System.out.println("|              Digite o dia do aniversario da conta: ");
 						aniversario = sc.nextInt();
+						
+						contas.atualizar(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
 					}
 					default -> {
 						System.out.println("|*****************************************************|");
@@ -166,7 +163,7 @@ public class Menu {
 					}
 				} else {
 					System.out.println("|*****************************************************|");
-					System.out.println("|              Conta n„o encontrada!                  |");
+					System.out.println("|              Conta n√£o encontrada!                  |");
 					System.out.println("|*****************************************************|");
 				}
 				keyPress();
@@ -177,9 +174,7 @@ public class Menu {
 				System.out.println("|              Apagar a conta                         |");
 				System.out.println("|*****************************************************|");
 
-				System.out.println("|*****************************************************|");
-				System.out.println("|              Atualizar dados                        |");
-				System.out.println("|*****************************************************|");
+				System.out.println("|              Digite o numero da conta: ");
 				
 				numero = sc.nextInt();
 				
@@ -192,6 +187,19 @@ public class Menu {
 				System.out.println("|*****************************************************|");
 				System.out.println("|              Saque                                  |");
 				System.out.println("|*****************************************************|");
+				
+
+				System.out.println("|              Digite o numero da conta: ");
+				numero = sc.nextInt();
+				
+				do {
+
+					System.out.println("|              Digite o valor do Saque: ");
+					valor = sc.nextFloat();
+				} while(valor <=0);
+				
+				contas.sacar(numero, valor);
+				
 				keyPress();
 				break;
 
@@ -199,6 +207,17 @@ public class Menu {
 				System.out.println("|*****************************************************|");
 				System.out.println("|              Deposito                               |");
 				System.out.println("|*****************************************************|");
+				
+				System.out.println("|              Digite o numero da conta: ");
+				numero = sc.nextInt();
+				
+				do {
+
+					System.out.println("|              Digite o valor do Deposito: ");
+					valor = sc.nextFloat();
+				} while(valor <=0);
+				
+				contas.sacar(numero, valor);
 				keyPress();
 				break;
 
@@ -206,12 +225,27 @@ public class Menu {
 				System.out.println("|*****************************************************|");
 				System.out.println("|              Transferencia entre contas             |");
 				System.out.println("|*****************************************************|");
+				
+				System.out.println("|              Digite o numero da conta de origem: ");
+				numero = sc.nextInt();
+
+				
+				System.out.println("|              Digite o numero da conta de Destino: ");
+				numDestino = sc.nextInt();
+				
+				do {
+
+					System.out.println("|              Digite o valor do Saque: ");
+					valor = sc.nextFloat();
+				} while(valor <=0);
+				
+				contas.transferir(numero, numDestino, valor);
 				keyPress();
 				break;
 
 			default:
 				System.out.println("|*****************************************************|");
-				System.out.println("|              OpÁ„o invalida - Tente novamente       |");
+				System.out.println("|              OpÔøΩÔøΩo invalida - Tente novamente       |");
 				System.out.println("|*****************************************************|");
 				keyPress();
 				break;
@@ -220,7 +254,7 @@ public class Menu {
 		}
 	}
 
-// RODAP… FECHAMENTO
+// RODAPE FECHAMENTO
 	public static void sobre() {
 
 		System.out.println("|   Desenvolvido Por Maria Leiliane                   |");
@@ -238,7 +272,7 @@ public class Menu {
 
 		} catch (IOException e) {
 			System.out.println("|*****************************************************|");
-			System.out.println("|   VocÍ pressionou uma tecla diferente de Enter!     |");
+			System.out.println("|   VocÔøΩ pressionou uma tecla diferente de Enter!     |");
 			System.out.println("|*****************************************************|" + Cores.TEXT_RESET);
 		}
 

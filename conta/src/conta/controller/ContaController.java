@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import conta.model.Conta;
 import conta.repository.ContaRepository;
+import conta.util.Cores;
 
 public class ContaController implements ContaRepository {
 
@@ -33,8 +34,6 @@ public class ContaController implements ContaRepository {
 	@Override
 	public void cadastrar(Conta conta) {
 		listaContas.add(conta);
-
-		System.out.println("|*****************************************************|");
 		System.out.println("|     Conta número: " + conta.getNumero() + "criada com sucesso!");
 		System.out.println("|*****************************************************|");
 		
@@ -46,13 +45,11 @@ public class ContaController implements ContaRepository {
 		
 		if (buscaConta != null) {
 			listaContas.set(listaContas.indexOf(buscaConta), conta);
-		System.out.println("|*****************************************************|");
-		System.out.println("|     Conta número: " + conta.getNumero() + " Atualizada!");
+		System.out.println("|     Atualozação da conta: " + conta.getNumero());
 		System.out.println("|*****************************************************|");
 		
 	}else 
-			System.out.println("|*****************************************************|");
-			System.out.println("|     Conta número: " + conta.getNumero() + " Não encontrada!");
+			System.out.println("|     Não existe a conta número: " + conta.getNumero());
 			System.out.println("|*****************************************************|");
 	}	
 
@@ -64,14 +61,15 @@ public class ContaController implements ContaRepository {
 		
 		if (conta != null) {
 			if (listaContas.remove(conta) == true)
-				System.out.println("|*****************************************************|");
-			System.out.println("|     Conta número: " + numero + " Deletada com sucesso!");
+			System.out.println(Cores.TEXT_BLUE_BOLD_BRIGHT +
+					"|     Conta número: " + numero + " Deletada com sucesso!");
 			System.out.println("|*****************************************************|");
 			
 		} else 
-			System.out.println("|*****************************************************|");
+			System.out.println(Cores.TEXT_RED_BRIGHT +
+					"|*****************************************************|");
 			System.out.println("|     Conta número: " + numero + " Não encontrada!");
-			System.out.println("|*****************************************************|");
+			System.out.println("|*****************************************************|" + Cores.TEXT_RESET);
 			
 		
 	}
@@ -81,6 +79,8 @@ public class ContaController implements ContaRepository {
 		var conta = buscarNaCollection(numero);
 		
 		if (conta != null) {
+			
+			if (conta.sacar(valor) == true);
 				System.out.println("|*****************************************************|");
 			System.out.println("|     Saque na conta: " + numero + " Realizado com sucesso!");
 			System.out.println("|*****************************************************|");
@@ -96,20 +96,42 @@ public class ContaController implements ContaRepository {
 		
 		if (conta != null) {
 			conta.depositar(valor);
-			System.out.println("|*****************************************************|");
+			System.out.println(Cores.TEXT_BLUE_BOLD_BRIGHT +
+					"|*****************************************************|");
 			System.out.println("|     Deposito na conta: " + numero + " Realizado com sucesso!");
-			System.out.println("|*****************************************************|");
+			System.out.println("|*****************************************************|" + Cores.TEXT_RESET);
 			
 		} else 
-			System.out.println("|*****************************************************|");
-			System.out.println("|     Conta: " + numero + " não encontrada!");
-			System.out.println("|*****************************************************|");
+			System.out.println(Cores.TEXT_RED_BOLD_BRIGHT + 
+					"|*****************************************************|");
+			System.out.println("|     Conta: " + numero + " não encontrada ou não existe!");
+			System.out.println("|*****************************************************|" + Cores.TEXT_RESET);
 		
 	}
 
 	@Override
-	public void transferir(int numeroOrigen, int numeroDestino, float valor) {
+	public void transferir(int numeroOrigem, int numeroDestino, float valor) {
+		var contaOrigem = buscarNaCollection(numeroOrigem);
+		var contaDestino = buscarNaCollection(numeroDestino);
 		
+		if (contaOrigem != null && contaDestino != null) {
+			
+			if (contaOrigem.sacar(valor) == true) {
+				
+			contaDestino.depositar(valor);
+			
+			System.out.println(Cores.TEXT_BLUE_BOLD_BRIGHT +
+					"|*****************************************************|");
+			System.out.println("|     Tranferencia realizada com ucesso!              |");
+			System.out.println("|*****************************************************|");
+			}
+			
+		} else 
+			System.out.println(Cores.TEXT_RED_BOLD_BRIGHT +
+					"|*****************************************************|");
+			System.out.println("|     Conta destino não encontrada!                   |");
+			System.out.println("|*****************************************************|" + Cores.TEXT_RESET);
+			
 	}
 	
 	
@@ -128,9 +150,7 @@ public class ContaController implements ContaRepository {
 	}
 
 	public int gerarNumero() {
-		// TODO Auto-generated method stub
-		return 0;
+		return numero;
 	}
-	
 
 }
