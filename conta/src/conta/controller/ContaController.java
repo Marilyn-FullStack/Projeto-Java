@@ -13,15 +13,12 @@ public class ContaController implements ContaRepository {
 	int numero = 0;
 	
 	//ACESS CRUD DA CONTA
-	@Override
 	public void procurarPorNumero(int numero) {
 		var conta = buscarNaCollection(numero);
 		if (conta != null)
 			conta.visualizar();
 		else
-			System.out.println("|*****************************************************|");
-			System.out.println("|     Conta número: " + conta.getNumero() + " não encontrada!");
-			System.out.println("|*****************************************************|");
+			System.out.println("|     Conta número: " + numero + " não encontrada!");
 	}
 
 	@Override
@@ -34,7 +31,7 @@ public class ContaController implements ContaRepository {
 	@Override
 	public void cadastrar(Conta conta) {
 		listaContas.add(conta);
-		System.out.println("|     Conta número: " + conta.getNumero() + "criada com sucesso!");
+		System.out.println("\n|     Conta número: " + conta.getNumero() + " criada com sucesso!");
 		System.out.println("|*****************************************************|");
 		
 	}
@@ -147,10 +144,6 @@ public class ContaController implements ContaRepository {
 			}
 		}
 		return null;
-	}
-
-	public int gerarNumero() {
-		return numero;
 	}
 
 }

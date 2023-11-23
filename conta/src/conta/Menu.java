@@ -40,7 +40,7 @@ public class Menu {
 			System.out.println("|              9 - Sair                               |");
 			System.out.println("|                                                     |");
 			System.out.println("|*****************************************************|");
-			System.out.println("|             Entre na op��o desejada                 |");
+			System.out.println("|             Entre na opção desejada                 |");
 			System.out.println("|*****************************************************|");
 
 			// DECISOES DE CADA OPCAO
@@ -57,7 +57,7 @@ public class Menu {
 
 			if (opcao == 9) {
 				System.out.println("\n|*****************************************************|");
-				System.out.println("|  Luar Banco a boa fase do seu capital come�a aqui!  |");
+				System.out.println("|  Luar Banco a boa fase do seu capital começa aqui!  |");
 				System.out.println("|*****************************************************|");
 				sobre();
 				sc.close();
@@ -66,7 +66,9 @@ public class Menu {
 
 			switch (opcao) {
 			case 1:
-				System.out.println("\n|              Digite o n�mero da Agencia ");
+				System.out.println("|              Criar conta: ");
+				
+				System.out.println("|              Digite o numero da agencia conta: ");
 				agencia = sc.nextInt();
 				System.out.println("|              Digite o nome do titular: ");
 				sc.skip("\\R?");
@@ -79,21 +81,22 @@ public class Menu {
 
 				System.out.println("|              Digite o saldo da conta: ");
 				saldo = sc.nextFloat();
-
+				
 				switch (tipo) {
 				case 1 -> {
 
-					System.out.println("|              Digite o limite de credito: -R$");
+					System.out.println("|              Digite o limite de credito: ");
 					limite = sc.nextFloat();
-					contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
+					contas.cadastrar(new ContaCorrente(contas.gerrarNumero(), agencia, tipo, titular, saldo, limite));
 				}
 				case 2 -> {
-					System.out.println("|              Escolha o dia para o aniversario conta: ");
+					System.out.println("|              Listar todas as contas: ");
 					aniversario = sc.nextInt();
-					contas.cadastrar(
-							new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
+					contas.cadastrar(new ContaPoupanca(contas.gerrarNumero(), agencia, tipo, titular, saldo, aniversario));
+
+					}
 				}
-				}
+		
 
 				keyPress();
 				break;
@@ -129,13 +132,15 @@ public class Menu {
 					tipo = buscaConta.getTipo();
 
 					System.out.println("|*****************************************************|");
-					System.out.println("|              Digite o numero da Agência:");
+					System.out.println("|              Digite o numero da Agência: ");
 					agencia = sc.nextInt();
 
 					System.out.println("|*****************************************************|");
 					System.out.println("|              Digite o nome do titular: ");
 					titular = sc.nextLine();
 
+					sc.skip("\\R");
+					
 					System.out.println("|*****************************************************|");
 					System.out.println("|              Digite o saldo da conta:");
 					saldo = sc.nextFloat();
@@ -159,12 +164,13 @@ public class Menu {
 						System.out.println("|*****************************************************|");
 						System.out.println("|              Tipo invalido!                         |");
 						System.out.println("|*****************************************************|");
-					}
+						}
 					}
 				} else {
-					System.out.println("|*****************************************************|");
+					System.out.println(Cores.ANSI_RED_BACKGROUND + 
+							"|*****************************************************|");
 					System.out.println("|              Conta não encontrada!                  |");
-					System.out.println("|*****************************************************|");
+					System.out.println("|*****************************************************|" + Cores.TEXT_RESET);
 				}
 				keyPress();
 				break;
@@ -215,7 +221,7 @@ public class Menu {
 
 					System.out.println("|              Digite o valor do Deposito: ");
 					valor = sc.nextFloat();
-				} while(valor <=0);
+				} while(valor <= 0);
 				
 				contas.sacar(numero, valor);
 				keyPress();
@@ -245,7 +251,7 @@ public class Menu {
 
 			default:
 				System.out.println("|*****************************************************|");
-				System.out.println("|              Op��o invalida - Tente novamente       |");
+				System.out.println("|              Opção invalida - Tente novamente       |");
 				System.out.println("|*****************************************************|");
 				keyPress();
 				break;
