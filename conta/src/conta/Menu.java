@@ -1,10 +1,15 @@
 package conta;
 
 import java.io.IOException;
+import java.lang.StackWalker.Option;
 import java.util.InputMismatchException;
+import java.util.Optional;
 import java.util.Scanner;
 
+import javax.tools.OptionChecker;
+
 import conta.controller.ContaController;
+import conta.model.Conta;
 import conta.model.ContaCorrente;
 import conta.model.ContaPoupanca;
 import conta.util.Cores;
@@ -18,7 +23,7 @@ public class Menu {
 		ContaController contas = new ContaController();
 
 		String titular;
-		int opcao, numero, agencia, tipo, aniversario, numDestino;
+		int opcao, numero, agencia, tipo, aniversario, numeroDestino;
 		float saldo, limite, valor;
 		
 		
@@ -141,11 +146,11 @@ public class Menu {
 				System.out.println("|              Digite o numero da Conta: ");
 				numero = sc.nextInt();
 
-				var buscaConta = contas.buscarNaCollection(numero);
+				Optional<Conta> conta = contas.buscarNaCollection(numero);
 
-				if (buscaConta != null) {
+				if (conta.isPresent()) {
 
-					tipo = buscaConta.getTipo();
+					tipo = conta.get().getTipo();
 
 					System.out.println("|*****************************************************|");
 					System.out.println("|              Digite o numero da Agência: ");
@@ -154,7 +159,12 @@ public class Menu {
 					System.out.println("|*****************************************************|");
 					System.out.println("|              Digite o nome do titular: ");
 					titular = sc.nextLine();
-
+					
+					Optional<String> opTitular = Optional.ofNullable(titular);
+					
+					if (opTitular.isPresent()) {
+						System.out.println("O campo esta vazio ou com numeros!!!");
+					} else System.out.println("Digite o nome próprio completo");
 					sc.skip("\\R");
 					
 					System.out.println("|*****************************************************|");
@@ -227,7 +237,7 @@ public class Menu {
 
 			case 7:
 				System.out.println("|*****************************************************|");
-				System.out.println("|              Deposito                               |");
+				System.out.println("|              Depositar                              |");
 				System.out.println("|*****************************************************|");
 				
 				System.out.println("|              Digite o numero da conta: ");
@@ -253,7 +263,7 @@ public class Menu {
 
 				
 				System.out.println("|              Digite o numero da conta de Destino: ");
-				numDestino = sc.nextInt();
+				numeroDestino = sc.nextInt();
 				
 				do {
 
@@ -261,7 +271,7 @@ public class Menu {
 					valor = sc.nextFloat();
 				} while(valor <=0);
 				
-				contas.transferir(numero, numDestino, valor);
+				contas.transferir(numero, numeroDestino, valor);
 				keyPress();
 				break;
 

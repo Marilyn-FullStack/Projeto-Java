@@ -1,6 +1,7 @@
 package conta.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import conta.model.Conta;
 import conta.repository.ContaRepository;
@@ -13,10 +14,12 @@ public class ContaController implements ContaRepository{
 	
 	@Override
 	public void procurarPorNumero(int numero) {
-		var conta = buscarNaCollection(numero);
 		
-		if(conta != null)
-			conta.visualizar();
+		Optional<Conta> conta = buscarNaCollection(numero);
+		
+		if(conta.isPresent())
+			conta.get().visualizar();
+		
 		else
 			System.out.println("|*****************************************************|");
 		System.out.println("|     Conta número:" + numero + " não encontrada");
@@ -45,23 +48,24 @@ public class ContaController implements ContaRepository{
 
 	@Override
 	public void atualizar(Conta conta) {
-		var buscaConta = buscarNaCollection(conta.getNumero());
-		
-		if(buscaConta != null) {
-			listaContas.set(listaContas.indexOf(buscaConta),  conta);
-			System.out.println(" Conta numero: " + conta.getNumero() + " foi atualizada com sucesso!");
-		}else {
-			System.out.println(" Conta numero: " + conta.getNumero() + " não foi encontrada!");
+
+		Optional<Conta> buscaConta = buscarNaCollection(conta.getNumero());
+
+		if (buscaConta.isPresent()) {
+			listaContas.set(listaContas.indexOf(buscaConta.get()), conta);
+			System.out.println("A conta número: " + conta.getNumero() + " foi Alterada com sucesso.");
+		} else {
+			System.out.println("A conta número: " + conta.getNumero() + " não foi encontrada.");
 		}
-		
+
 	}
 
 	@Override
 	public void deletar(int numero) {
-		var conta = buscarNaCollection(numero);
+		Optional<Conta> conta = buscarNaCollection(numero);
 		
-		if(conta != null) {
-			if(listaContas.remove(conta) == true) {
+		if(conta.isPresent()) {
+			if(listaContas.remove(conta.get()) == true) {
 				System.out.println("|*****************************************************|");
 				System.out.println(" Conta numero: " + numero + "deletada com sucesso!");
 				System.out.println("|*****************************************************|");
@@ -76,71 +80,63 @@ public class ContaController implements ContaRepository{
 
 	@Override
 	public void sacar(int numero, float valor) {
-		var conta = buscarNaCollection(numero);
+		Optional<Conta> conta = buscarNaCollection(numero);
 		
-		if(conta != null) {
-			if(conta.sacar(valor) == true) {
-				System.out.println("|*****************************************************|");
-				System.out.println(" Saque na Conta numero: " + numero + " efetuado com sucesso!");
-				System.out.println("|*****************************************************|");
+		if(conta.isPresent()) {
+			if(conta.get().sacar(valor) == true) {
+				System.out.println("\nO Saque na Conta numero: " + numero + "foi efetuado com sucesso!");
 			} 
 		}else {
-			System.out.println("|*****************************************************|");
-			System.out.println("   Conta numero: " + numero + " não foi encontrada!");
-			System.out.println("|*****************************************************|");
+			System.out.println("\nA Conta numero: " + numero + " não foi encontrada!");
 		}
 		
 	}
 
-	@Override
+		
+
+
+	@Override 
 	public void depositar(int numero, float valor) {
-		var conta = buscarNaCollection(numero);
-		
-		if(conta != null) {
-			conta.depositar(valor);
-			System.out.println("|*****************************************************|");
-			System.out.println(" Depósito na Conta número: " + numero + " feito com sucesso!");
-			System.out.println("|*****************************************************|");
-		}else {
-			System.out.println("|*****************************************************|");
-			System.out.println(" Conta numero: " + numero + " não existe ou não é uma Conta Corrente!");
-			System.out.println("|*****************************************************|");
-		}
-		
+	Optional<Conta> conta = buscarNaCollection(numero);
+
+	if (conta.isPresent()) {
+		conta.get().depositar(valor);
+		System.out.println("o deposito na conta: " + numero + " foi efetuado com sucesso!");
+		System.out.println("|*****************************************************|");
+		System.out.println(" Depósito na Conta número: " + numero + " feito com sucesso!");
+		System.out.println("|*****************************************************|");
+	}
 	}
 	
 	
 
 	@Override
 	public void transferir(int numeroOrigem, int numeroDestino, float valor) {
-		var contaOrigem = buscarNaCollection(numeroOrigem);
-		var contaDestino = buscarNaCollection(numeroDestino);
-		
-		if(contaOrigem != null && contaDestino != null) {
-			
-			if(contaOrigem.sacar(valor) == true) {
-				contaDestino.depositar(valor);
-				System.out.println("|*****************************************************|");
-				System.out.println("       Transferência foi efetuada com sucesso!");
-				System.out.println("|*****************************************************|");
+		Optional<Conta> contaOrigem = buscarNaCollection(numeroOrigem);
+		Optional<Conta> contaDestino = buscarNaCollection(numeroDestino);
+
+		if (contaOrigem.isPresent() && contaDestino.isPresent())
+			if (contaOrigem.get().sacar(valor) == true) {
+				contaDestino.get().depositar(valor);
+				System.out.println("a transferir foi efetuado com sucesso!");
 			}
-		}else {
+			else
+
 			System.out.println("|*****************************************************|");
-			System.out.println("   A Conta Origem ou Destino não foram encontrados!");
-			System.out.println("|*****************************************************|");
-		}
-		
-	}
+			System.out.println("       Transferência foi efetuada com sucesso!");
+			System.out.println("|*****************************************************|");}
 	
+			
 	public int gerarNumero() {
 		return ++ numero;
 	}
 	
-	public Conta buscarNaCollection(int numero) {
+	public Optional<Conta> buscarNaCollection(int numero) {
 		for(var conta : listaContas) {
-			if(conta.getNumero() == numero) {
-				return conta;
-			}
+			if(conta.getNumero() == numero) 
+				return  Optional.of(conta);
+			
+			return Optional.empty();
 		}
 		
 		return null;
