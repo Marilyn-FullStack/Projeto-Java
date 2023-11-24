@@ -20,6 +20,22 @@ public class Menu {
 		String titular;
 		int opcao, numero, agencia, tipo, aniversario, numDestino;
 		float saldo, limite, valor;
+		
+		
+		//CONTAS TESTE
+		ContaCorrente cc1 = new ContaCorrente(contas.gerarNumero(), 2201, 1, "Luara", 500f, 50.0f);
+		contas.cadastrar(cc1);
+
+		ContaCorrente cc2 = new ContaCorrente(contas.gerarNumero(), 2202, 1, "Luciano", 1000f, 100.0f);
+		contas.cadastrar(cc2);
+
+		ContaPoupanca cp1 = new ContaPoupanca(contas.gerarNumero(), 2303, 2, "Beyoncé", 2000f, 04);
+		contas.cadastrar(cp1);
+
+		ContaPoupanca cp2 = new ContaPoupanca(contas.gerarNumero(), 2304, 2, "Édith Piaf", 3000f, 22);
+		contas.cadastrar(cp2);
+
+		
 		while (true) {
 
 			System.out.println( Cores.TEXT_BLUE_BOLD_BRIGHT +
@@ -87,12 +103,12 @@ public class Menu {
 
 					System.out.println("|              Digite o limite de credito: ");
 					limite = sc.nextFloat();
-					contas.cadastrar(new ContaCorrente(contas.gerrarNumero(), agencia, tipo, titular, saldo, limite));
+					contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
 				}
 				case 2 -> {
 					System.out.println("|              Listar todas as contas: ");
 					aniversario = sc.nextInt();
-					contas.cadastrar(new ContaPoupanca(contas.gerrarNumero(), agencia, tipo, titular, saldo, aniversario));
+					contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
 
 					}
 				}
@@ -272,13 +288,15 @@ public class Menu {
 
 	public static void keyPress() {
 		try {
+
+			System.out.println("|*****************************************************|");
 			System.out.println("|   Pressione Enter para Continuar...                 |");
 			System.out.println("|*****************************************************|");
 			System.in.read();
 
 		} catch (IOException e) {
 			System.out.println("|*****************************************************|");
-			System.out.println("|   Voc� pressionou uma tecla diferente de Enter!     |");
+			System.out.println("|   Você pressionou uma tecla diferente de Enter!     |");
 			System.out.println("|*****************************************************|" + Cores.TEXT_RESET);
 		}
 
