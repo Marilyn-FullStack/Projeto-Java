@@ -18,7 +18,11 @@ public class ContaController implements ContaRepository{
 		if(conta != null)
 			conta.visualizar();
 		else
-			System.out.println(" Conta número: " + numero + " não foi encontrada");
+			System.out.println("|*****************************************************|");
+		System.out.println("|     Conta número:" + numero + " não encontrada");
+		System.out.println("|*****************************************************|");
+
+			System.out.println(" ");
 		
 	}
 
@@ -33,7 +37,9 @@ public class ContaController implements ContaRepository{
 	@Override
 	public void cadastrar(Conta conta) {
 		listaContas.add(conta);
-		System.out.println(" Conta número: " + conta.getNumero() + " foi criada com sucesso!");
+		System.out.println("|*****************************************************|");
+		System.out.println(" Conta número: " + conta.getNumero() + " criada com sucesso!");
+		System.out.println("|*****************************************************|");
 		
 	}
 
@@ -56,9 +62,13 @@ public class ContaController implements ContaRepository{
 		
 		if(conta != null) {
 			if(listaContas.remove(conta) == true) {
-				System.out.println(" Conta numero: " + numero + "foi deletada com sucesso!");
+				System.out.println("|*****************************************************|");
+				System.out.println(" Conta numero: " + numero + "deletada com sucesso!");
+				System.out.println("|*****************************************************|");
 			}else {
-				System.out.println(" Conta numero: " + numero + "não foi encontrada!");
+				System.out.println("|*****************************************************|");
+				System.out.println("   Conta numero: " + numero + "não foi encontrada!");
+				System.out.println("|*****************************************************|");
 			}
 		}
 		
@@ -70,10 +80,14 @@ public class ContaController implements ContaRepository{
 		
 		if(conta != null) {
 			if(conta.sacar(valor) == true) {
+				System.out.println("|*****************************************************|");
 				System.out.println(" Saque na Conta numero: " + numero + " efetuado com sucesso!");
+				System.out.println("|*****************************************************|");
 			} 
 		}else {
-			System.out.println(" Conta numero: " + numero + " não foi encontrada!");
+			System.out.println("|*****************************************************|");
+			System.out.println("   Conta numero: " + numero + " não foi encontrada!");
+			System.out.println("|*****************************************************|");
 		}
 		
 	}
@@ -84,9 +98,13 @@ public class ContaController implements ContaRepository{
 		
 		if(conta != null) {
 			conta.depositar(valor);
-			System.out.println(" Depósito na Conta número: " + numero + " foi efetuado com sucesso!");
+			System.out.println("|*****************************************************|");
+			System.out.println(" Depósito na Conta número: " + numero + " feito com sucesso!");
+			System.out.println("|*****************************************************|");
 		}else {
-			System.out.println(" Conta numero: " + numero + " não foi encontrada ou a Conta destino não é uma Conta Corrente!");
+			System.out.println("|*****************************************************|");
+			System.out.println(" Conta numero: " + numero + " não existe ou não é uma Conta Corrente!");
+			System.out.println("|*****************************************************|");
 		}
 		
 	}
@@ -102,10 +120,14 @@ public class ContaController implements ContaRepository{
 			
 			if(contaOrigem.sacar(valor) == true) {
 				contaDestino.depositar(valor);
-				System.out.println("\nA Transferência foi efetuada com sucesso!");
+				System.out.println("|*****************************************************|");
+				System.out.println("       Transferência foi efetuada com sucesso!");
+				System.out.println("|*****************************************************|");
 			}
 		}else {
-			System.out.println("\nA Conta de Origem e/ou Destino não foram encontradas!");
+			System.out.println("|*****************************************************|");
+			System.out.println("   A Conta Origem ou Destino não foram encontrados!");
+			System.out.println("|*****************************************************|");
 		}
 		
 	}

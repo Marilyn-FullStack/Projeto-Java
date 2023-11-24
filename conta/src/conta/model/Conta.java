@@ -66,7 +66,7 @@ public abstract class Conta {
 
 		}
 
-		this.setSaldo(this.getSaldo() - valor);
+		this.setSaldo(this.getSaldo() + valor);
 		return true;
 	}
 
